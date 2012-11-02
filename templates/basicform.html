@@ -1,0 +1,45 @@
+$def with (form)
+
+
+<div class="row">
+  <div class="span12">
+    <h1>G2Worm: Map GWAS hits to C Elegans</h1>
+    <p>To facilitate follow-up of human GWAS hits in C Elegans, take human genes, map to C Elegans, then map to C Elegans phenotypes from WormMart.</p>
+     <p>Disclaimer: This tool is not intended to diagnose, treat, cure, or prevent any disease.<br>
+    </div>
+</div>
+
+<div class="row">
+
+	<div class="span8 offset2">
+
+		<form name="main" method="post" class="form-horizontal"> 
+			$if not form.valid: <p class="error">Please correct the errors below:</p>
+
+  <legend>Human Gene List</legend>
+
+    <div class="control-group">
+      <label class="control-label" for="">Enter genes</label>
+      <div class="controls">
+          $:form.Druglist.render()
+      </div>
+    </div>
+
+ <legend>Other options</legend>
+    <div class="control-group">
+      <label class="checkbox inline" for="">
+            $:form.Option_1.render()
+           permute</label>
+      <label class="checkbox inline" for="">
+            $:form.Option_2.render()
+            Use z-scores</label>
+
+    <hr>
+
+<button type="submit" class="btn">Submit</button>
+    </div>
+    </form>
+
+
+</div>
+

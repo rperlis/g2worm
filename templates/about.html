@@ -1,0 +1,63 @@
+<legend>About G2Worm: Human GWAS to C Elegans</legend>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+<p><a href="http://massgeneral.org/cedd"><img class="img-border" style="margin-left: 0px; margin-right: 12px; float: right;" src="../static/CEDD-final-CMYK.jpg" alt="CEDD logo" width="348" height="145" /></a></p>
+Repurposing existing FDA-approved medications for novel indications presents substantial advantages: 
+The safety and dose range has already been established, so the path to clinical practice is far shorter.
+However, one challenge is extrapolating from in vitro models to humans: does the drug get into the brain?
+To complement traditional PK approaches (i.e., dose the rat, then chop its head off), chemical properties
+such as molecular weight may be useful.
+This calculator uses an alternate approach, based on the assumption that drugs which enter brain are likely
+to have adverse effect profiles similar to other brain-penetrant drugs. This is a heuristic, not a perfect solution.
+However, it may be useful in prioritizing among a group of medications being considered for further study in vivo.
+
+The calculator implements the similarity estimates described in Perlis, in review.
+For details, see that manuscript. Original pairwise similarities drawn from Tatonetti, Sci Trans Med 2012. <br>
+<hr>
+For details about the MGH Psychiatry Center for Experimental Drugs and Diagnostics, see <br>
+<a href="http://massgeneral.org/cedd">massgeneral.org/cedd</a>
+<br><br>
+<legend>Notes</legend>
+<div class="accordion" id="accordion2">
+<div class="accordion-group">
+<div class="accordion-heading">
+<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+General notes
+</a>
+</div>
+<div id="collapseOne" class="accordion-body collapse">
+<div class="accordion-inner">
+The calculator implements the similarity estimates described in Perlis, in review. These are calculated as the mean of similarity z-scores with the comparison drugs selected.
+For details, see that manuscript. Original pairwise similarities drawn from Tatonetti, Sci Trans Med 2012. 
+Select either a predefined comparison panel (antidepressant, antipsychotic, or the combination), or enter a comma-separated list in the custom box (don't forget to select custom from the pulldown, too).
+The 'random' pulldown option will select 3 random drugs for comparison; it illustrates that the importance of selecting an appropriate comparison panel.
+</div>
+</div>
+</div>
+<div class="accordion-group">
+<div class="accordion-heading">
+<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+Pairwise data notes
+</a>
+</div>
+<div id="collapseTwo" class="accordion-body collapse">
+<div class="accordion-inner">
+The original pairwise similarity measures and z-scores are accessible via Tatonetti et al, Sci Trans Med 2012; this data set includes ~631 drugs.
+Side effects reflect both package insert and postmarketing data.</div>
+</div>
+</div>
+<div class="accordion-group">
+<div class="accordion-heading">
+<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+Chemistry notes
+</a>
+</div>
+<div id="collapseThree" class="accordion-body collapse">
+<div class="accordion-inner">
+Additional chemical property data (molecular weight and log-P) are drawn from Pubchem, last updated 10/20/2012.
+</div>
+</div>
+</div>
+</div>

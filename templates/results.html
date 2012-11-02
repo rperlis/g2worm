@@ -1,0 +1,43 @@
+$def with (goodhumanx,goodwormx,pathcountx)
+
+<style>
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #eee;
+    shape-rendering: crispEdges;
+}
+ 
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+ 
+.loading {
+    font-family: sans-serif;
+    font-size: 15px;
+}
+ 
+.circle {
+    fill: #222;
+}
+</style>
+ 
+<h1>G2Worm: Match GWAS genes to C elegans phenotypes</h1>
+<br><h4>
+<legend>Genes matched:</legend> 
+<h4>$:goodhumanx</p>
+<legend>C. elegans genes:</legend>
+<h4>$:goodwormx</p>
+<legend>Phenotypes: </legend>
+<h4>$:pathcountx</h4>
+<hr>
+<label>Radius shows:</label>
+<select id="refpop" name="refpop">
+ <option value=0 selected>None</option>
+ <option value=1>LogP</option>
+ <option value=2>Literature report of penetrance</option>
+</select>
+ 
+
+

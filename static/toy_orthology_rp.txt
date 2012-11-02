@@ -1,0 +1,10 @@
+Ensembl Gene ID	Multiple?	% Identity with respect to Human gene	Hs Gene	HS Description	First	Ensembl Gene ID
+4R79.2	0	45	RAB44	"RAB44, member RAS oncogene family [Source:HGNC Symbol;Acc:21068]"	1	4R79.2
+AC7.1	1	21	GPR83	G protein-coupled receptor 83 [Source:HGNC Symbol;Acc:4523]	1	AC7.1
+AC7.1	1	22	PRLHR	prolactin releasing hormone receptor [Source:HGNC Symbol;Acc:4464]	1	AC7.1
+AC7.2	1	27	LRRC30	leucine rich repeat containing 30 [Source:HGNC Symbol;Acc:30219]	1	AC7.2
+AC7.2	1	15	LRRD1	leucine-rich repeats and death domain containing 1 [Source:HGNC Symbol;Acc:34300]	1	AC7.2
+AC7.2	1	23	LRRIQ4	leucine-rich repeats and IQ motif containing 4 [Source:HGNC Symbol;Acc:34298]	1	AC7.2
+AC7.2	1	9	MFHAS1	malignant fibrous histiocytoma amplified sequence 1 [Source:HGNC Symbol;Acc:16982]	1	AC7.2
+AC7.2	1	52	SHOC2	soc-2 suppressor of clear homolog (C. elegans) [Source:HGNC Symbol;Acc:15454]	1	AC7.2
+AH6.2	1	48	SFXN1	sideroflexin 1 [Source:HGNC Symbol;Acc:16085]	1	AH6.2
