@@ -131,69 +131,6 @@ def check_genelist(variables):
     appearance_counterlist2=collections.Counter(klist2)
     appearancefull_counterlist2=collections.Counter(fullklist2)
     
-    # make a dictionary with pathways
-    
-    pathway_dict={}
-    commonlist=appearancefull_counterlist2.most_common()
-    for items in commonlist :
-        #pathway_dict[items][1]="nose"
-        pathway_dict[items[0]]=[]
-    
-    # loop through all genes and add them to pathways
-
-    for keys in pathway_dict :
-        for genes in matcher_dict :
-            #print("key:",keys,"genes",genes)
-            #if property_dict.has_key(matcher_dict[genes][2]):
-            #print("true",matcher_dict[genes])    
-            #print("item:",property_dict[matcher_dict[genes]][2])
-            if keys in property_dict[matcher_dict[genes]][2]: 
-                pathway_dict[keys].append(genes)
-    #print (pathway_dict)
-    
-    ####################
-    # write files
-    ####################
-    inrich_file=file("static/g2worm_inrich","w")
-    inrich_file.write("Gene_name\tPath_name\tAnnotation\n")
-    for human_genes in matcher_dict :
-        for phenotypes in property_dict[matcher_dict[human_genes]][2]:
-            inrich_file.write(human_genes)
-            inrich_file.write("\t")
-            inrich_file.write(phenotypes.replace(" ","_"))
-            inrich_file.write("\t")
-            inrich_file.write(phenotypes.replace(" ","_"))
-            inrich_file.write("\n")
-    inrich_file.close()
-    
-    ######################
-    # write set-list hg18 for plink
-    ######################
-    # first read hg18 data
-    # read in pairs of human id to worm
-    fname="static/glist-hg18"
-    #fname="static/toy_orthology_rp.txt"
-# read in property dictionary - new format
-    hg18_lookup={}
-    gene_dict={}
-    
-    gene_table=csv.reader(open(fname),delimiter=' ')
-    for row in gene_table:
-        gene_dict[row[3]]=row[0]+"\t"+row[1]+"\t"+row[2]
-# now output list of genes
-    plink_file=file("static/g2worm_plinkset","w")
-    # plink_file.write("Gene_name\tPath_name\tAnnotation\n") ---> NO HEADER
-    for human_genes in matcher_dict :
-        for phenotypes in property_dict[matcher_dict[human_genes]][2]:
-            if gene_dict.has_key(human_genes):
-                plink_file.write(gene_dict[human_genes])
-                plink_file.write("\t")
-                plink_file.write(human_genes)
-                plink_file.write("\t")            
-                plink_file.write(phenotypes.replace(" ","_"))
-                plink_file.write("\n")
-            #else : print("unmatched_hg18_gene:",human_genes)    
-    plink_file.close()
     
     # return 
     return {
