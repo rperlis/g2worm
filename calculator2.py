@@ -5,6 +5,7 @@ import os
 
 # CONSTANTS would go here, if any - eg, CONSTANT={'value1': num, 'value2':num2, etc.}
 FNAME_WORM_PHENOS=os.path.dirname(__file__)+"/static/mart_export.txt.gz" 
+FNAME_GENE_MATCHER=os.path.dirname(__file__)+"/static/orthology_rp.txt"
 
 property_dict={}
 phenolist=[]
@@ -47,7 +48,7 @@ def check_genelist(variables):
     #complist=[x.strip() for x in fixcomplist] 
     
 # read in pairs of human id to worm
-    fname="static/orthology_rp.txt"
+
     #fname="static/toy_orthology_rp.txt"
 # read in property dictionary - new format
     matcher_dict={}
@@ -56,7 +57,7 @@ def check_genelist(variables):
     goodgenes=[]
     matchedworm_to_human={}
     
-    genepairs=csv.reader(open(fname),delimiter='\t')
+    genepairs=csv.reader(open(FNAME_GENE_MATCHER),delimiter='\t')
     for row in genepairs:
         if row[0]<>'Ensembl Gene ID' : matcher_dict[row[3]]=row[0]
     for comp in complist: 
