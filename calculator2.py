@@ -1,19 +1,37 @@
-import math
-from StringIO import StringIO
-import numpy
 import csv
-import operator
-import random
-from scipy.stats import ks_2samp
-from scipy.stats import stats
-import itertools
 import gzip
 import collections
-import re
+import os
 
 # CONSTANTS would go here, if any - eg, CONSTANT={'value1': num, 'value2':num2, etc.}
+FNAME_WORM_PHENOS=os.path.dirname(__file__)+"/static/mart_export.txt.gz" 
 
-
+property_dict={}
+phenolist=[]
+with gzip.open(FNAME_WORM_PHENOS) as gzfile:
+    drug_properties=csv.reader(gzfile,delimiter='\t')
+    for row in drug_properties:
+        templist=row[2].split(' | ')
+        tempfulllist=row[3].split(' | ')
+        templist2=[]
+        tempfulllist2=[]
+        for items in templist: 
+            if not(items==''): templist2.append(items)
+                #### note big problem: in the shorter list, no distinction between observed and NOT!!!
+        for items in tempfulllist:
+            if not(items=='') and not("Not Observed" in items): 
+                temp_parse=items[10:-47]
+                    #print(temp_parse,"end=",temp_parse[-3:])
+                if temp_parse.endswith(': ex'): temp_parse=temp_parse[:-4]
+                if temp_parse.endswith(': e'): temp_parse=temp_parse[:-3]
+                if temp_parse.endswith(': '): temp_parse=temp_parse[:-2]
+                if temp_parse.endswith(':'): temp_parse=temp_parse[:-1]
+                tempfulllist2.append(temp_parse)
+            #liststring="|".join(templist)
+        property_dict[row[5]]=[row[1],templist2,tempfulllist2,row[4]]
+        phenolist.append(row[2].split(' | '))
+            
+            
 def check_genelist(variables): 
     """
 
@@ -49,36 +67,11 @@ def check_genelist(variables):
     print(matchedworm_to_human)
     #print (matcher_dict)
     
-    fname="static/mart_export.txt.gz"
+#    fname="static/mart_export.txt.gz"
 
 # read in worm phenotype dictionary - new format
-    property_dict={}
-    fulldruglist=[]   
-    phenolist=[]
-    with gzip.open(fname) as gzfile:
-        drug_properties=csv.reader(gzfile,delimiter='\t')
-        for row in drug_properties:
-            templist=row[2].split(' | ')
-            tempfulllist=row[3].split(' | ')
-            templist2=[]
-            tempfulllist2=[]
-            for items in templist: 
-                if not(items==''): templist2.append(items)
-                #### note big problem: in the shorter list, no distinction between observed and NOT!!!
-            for items in tempfulllist:
-                if not(items=='') and not("Not Observed" in items): 
-                    temp_parse=items[10:-47]
-                    #print(temp_parse,"end=",temp_parse[-3:])
-                    if temp_parse.endswith(': ex'): temp_parse=temp_parse[:-4]
-                    if temp_parse.endswith(': e'): temp_parse=temp_parse[:-3]
-                    if temp_parse.endswith(': '): temp_parse=temp_parse[:-2]
-                    if temp_parse.endswith(':'): temp_parse=temp_parse[:-1]
-                    tempfulllist2.append(temp_parse)
-            #liststring="|".join(templist)
-            property_dict[row[5]]=[row[1],templist2,tempfulllist2,row[4]]
-            phenolist.append(row[2].split(' | '))
-            #fulldruglist.append(key) 
-    #print(property_dict)
+# moved to not be a function so gets compiled when server run, just for speediness - thanks Brett!
+
 # now output phenotypes
     pheno_list=[]
     fullpheno_list=[]
@@ -210,9 +203,11 @@ def check_genelist(variables):
         'pathway_counts':appearance_counterlist.most_common(),
         'full_pathways':fullklist,
         'full_pathways_counts':appearancefull_counterlist.most_common(),
-        'pathway_with_genes':pathway_with_genes,
-        'gene_to_pathway':gene_to_pathway,
+        'pathway_with_genes':make_table_list(pathway_with_genes,'pathway','genes'),
+        'gene_to_pathway':make_table_list(gene_to_pathway,'gene','pathway')
     }
+
+
 
 def make_pathways(variables): 
     """
@@ -370,3 +365,28 @@ def make_pathways(variables):
         'gene_to_pathway':"Not_applicable",
     }
 
+def make_table(any_dictionary,col1,col2,showfreq=1):
+    htmltext='<table class="table table-condensed table-bordered table-striped"><thead><th style="width:20%">'+col1+'</th><th>'+col2+'</th></thead>'
+    htmltext=htmltext+'<tbody>'
+    if any_dictionary:
+        for key1 in any_dictionary:
+            htmltext=htmltext+'<tr><td>'+key1+'</td><td>'
+            for key2 in any_dictionary[key1]:
+                if showfreq==1:
+                    htmltext=htmltext+key2+' ('+str(any_dictionary[key1][key2]*100)+'%), '
+                else:
+                    htmltext=htmltext+key2+', '
+            htmltext=htmltext[:-2]+'</td></tr>'    
+    else: htmltext=htmltext+'<tr><td>None</td><td> </td></tr>'
+    htmltext=htmltext+'</tbody></table>'
+    return htmltext
+
+def make_table_list(any_dictionary,col1,col2):
+    htmltext='<table class="table table-condensed table-bordered table-striped"><thead><th style="width:40%">'+col1+'</th><th>'+col2+'</th></thead>'
+    htmltext=htmltext+'<tbody>'
+    if any_dictionary:
+        for key1 in any_dictionary:
+            htmltext=htmltext+'<tr><td>'+key1+'</td><td>'+', '.join(any_dictionary[key1])+'</td></tr>'
+    else: htmltext=htmltext+'<tr><td>None</td><td> </td></tr>'
+    htmltext=htmltext+'</tbody></table>'
+    return htmltext

@@ -23,26 +23,52 @@ $def with (goodhumanx,goodwormx,pathcountx,gene2pathx,path2genex)
 }
 </style>
  
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+
 <h1>G2Worm: Match GWAS genes to C elegans phenotypes</h1>
 <br><h4>
 <legend>Genes matched:</legend> 
 <h4>$:goodhumanx</p>
 <legend>C. elegans genes:</legend>
-<h4>$:goodwormx</p>
-<legend>Phenotypes: </legend>
-<h4>$:pathcountx</h4>
+<h4>$:goodwormx</p></h4>
 <hr>
-<legend>Gene to pathway</legend>
+<div class="accordion" id="accordion2">
+<div class="accordion-group">
+<div class="accordion-heading">
+<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+For each gene, list pathways
+</a>
+</div>
+<div id="collapseOne" class="accordion-body collapse">
+<div class="accordion-inner">
 $:gene2pathx
-<legend>Pathway to gene</legend>
+</div>
+</div>
+</div>
+<div class="accordion-group">
+<div class="accordion-heading">
+<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+For each pathway, list genes
+</a>
+</div>
+<div id="collapseTwo" class="accordion-body collapse">
+<div class="accordion-inner">
 $:path2genex
-<hr>
-<label>Radius shows:</label>
-<select id="refpop" name="refpop">
- <option value=0 selected>None</option>
- <option value=1>LogP</option>
- <option value=2>Literature report of penetrance</option>
-</select>
- 
-
+</div>
+</div>
+</div> 
+<div class="accordion-group">
+<div class="accordion-heading">
+<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+Total pathway counts
+</a>
+</div>
+<div id="collapseThree" class="accordion-body collapse">
+<div class="accordion-inner">
+$:pathcountx
+</div>
+</div>
+</div> 
+</div>
 
