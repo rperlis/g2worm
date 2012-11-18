@@ -4,17 +4,9 @@
 <script src="static/bootstrap/js/bootstrap.min.js"></script>
 
 <p><a href="http://massgeneral.org/cedd"><img class="img-border" style="margin-left: 0px; margin-right: 12px; float: right;" src="../static/CEDD-final-CMYK.jpg" alt="CEDD logo" width="348" height="145" /></a></p>
-Repurposing existing FDA-approved medications for novel indications presents substantial advantages: 
-The safety and dose range has already been established, so the path to clinical practice is far shorter.
-However, one challenge is extrapolating from in vitro models to humans: does the drug get into the brain?
-To complement traditional PK approaches (i.e., dose the rat, then chop its head off), chemical properties
-such as molecular weight may be useful.
-This calculator uses an alternate approach, based on the assumption that drugs which enter brain are likely
-to have adverse effect profiles similar to other brain-penetrant drugs. This is a heuristic, not a perfect solution.
-However, it may be useful in prioritizing among a group of medications being considered for further study in vivo.
-
-The calculator implements the similarity estimates described in Perlis, in review.
-For details, see that manuscript. Original pairwise similarities drawn from Tatonetti, Sci Trans Med 2012. <br>
+This tool is intended to provide an efficient means of mapping human genes to C elegans, then characterizing phenotypes
+which arise from disruption of those genes by shRNA. This might be useful, for example, in designing experiments to further characterize
+the biology implicated by human GWAS studies. Data for C elegans phenotypes is drawn from Wormbase via the Wormmart tool. <br>
 <hr>
 For details about the MGH Psychiatry Center for Experimental Drugs and Diagnostics, see <br>
 <a href="http://massgeneral.org/cedd">massgeneral.org/cedd</a>
@@ -29,34 +21,45 @@ General notes
 </div>
 <div id="collapseOne" class="accordion-body collapse">
 <div class="accordion-inner">
-The calculator implements the similarity estimates described in Perlis, in review. These are calculated as the mean of similarity z-scores with the comparison drugs selected.
-For details, see that manuscript. Original pairwise similarities drawn from Tatonetti, Sci Trans Med 2012. 
-Select either a predefined comparison panel (antidepressant, antipsychotic, or the combination), or enter a comma-separated list in the custom box (don't forget to select custom from the pulldown, too).
-The 'random' pulldown option will select 3 random drugs for comparison; it illustrates that the importance of selecting an appropriate comparison panel.
+Enter the list of human genes in a tab or comma-separated list in the top text field. Any unmatched genes, either because of
+typos or lack of known worm ortholog, will be omitted.
 </div>
 </div>
 </div>
 <div class="accordion-group">
 <div class="accordion-heading">
 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-Pairwise data notes
+Interpreting results
 </a>
 </div>
 <div id="collapseTwo" class="accordion-body collapse">
 <div class="accordion-inner">
-The original pairwise similarity measures and z-scores are accessible via Tatonetti et al, Sci Trans Med 2012; this data set includes ~631 drugs.
-Side effects reflect both package insert and postmarketing data.</div>
+The worm phenotypes vary widely in the number of associated genes - some are specific for 1 or 2 genes, while others are much more
+commonly observed (eg, embryonic lethal phenotypes). To aid in interpreting pathway results, the number of (human) genes associated with
+a given phenotype are listed in the results. Alternatively, if the 'permute' box is checked, the tool will use permutation to estimate a
+p-value - i.e., what is the likelihood that a result as extreme, or more extreme, in terms of number of genes mapping to that pathway
+would be observed under the null. The basic unit of analysis here is the gene - the tool as written does not account for LD blocks, for example.
+A strength of this approach is that different sources of data can be integrated - for example, genes from GWAS can be combined
+with genes/proteins known to be relevant.</div>
+</div> 
 </div>
-</div>
-<div class="accordion-group">
+<div class="accordion-group>
 <div class="accordion-heading">
 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-Chemistry notes
+Additional notes about permutation
 </a>
 </div>
 <div id="collapseThree" class="accordion-body collapse">
 <div class="accordion-inner">
-Additional chemical property data (molecular weight and log-P) are drawn from Pubchem, last updated 10/20/2012.
+Permutation randomly selects sets of the same number of human genes enterewd in the text box, and determines their pathway mapping.
+This process is repeated 1000 times, so for any given pathway, there may be 0 genes appearing x1 times, 1 gene appearing x2 times, 2 genes
+appearing x3 times, and so forth. This is a rough indicator of how likely a given result is to arise under the null. Limitations: it does
+not fully control for multiple comparisons - each pathway represents a test, though not a fully independent one. Also, it treats every gene
+as being equally likely to be selected, when in fact (because of size, location, LD structure, and so forth) this is not the case for GWAS
+or sequencing results. Still, this should be a reasonable estimate in most cases.
+Important note: If the goal is specifically to test a list of SNPs or CNVs for enrichment, an alternative strategy which *is* aware of genomic structure
+(though less able to integrate non-genetic data) is to use either INRICH (Phil Lee) or PLINK (Shaun Purcell). Files generated by g2worm
+for use with those tools are available from the author.
 </div>
 </div>
 </div>
