@@ -79,18 +79,16 @@ class index:
             
             }
             
-            if form['Option_1'].checked:
-                result = calculator2.make_pathways(variables)
+
             #drug_results_json=json.dumps(result['drug_results'])
         # if score result is -99, indicating error (no match), return error screen            
             #if result['zscore']==-99: return render.error(variables['Index_drug'],variables['Comparator'])
         # otherwise render resuls.
 #            else: return render.results(rounded_prediction,drug_results_json,result['zscore'],variables['Comparator'],result['matched_list'])        
             #else: return render.results(variables['Index_drug'],drug_results_json,result['zscore'],variables['Comparator'],result['matched_list'])
-                return render.results(result['goodgenes'],result['goodwormgene'],result['full_pathways_counts'],"n_a","n_a")
-            else : 
-                result=calculator_worm.check_genelist(variables)
-                return render.results(result['goodgenes'],result['goodwormgene'],result['full_pathways_counts'],result['gene_to_pathway'],result['pathway_with_genes'])
+
+            result=calculator_worm.check_genelist(variables)
+            return render.results(result['goodgenes'],result['goodwormgene'],result['full_pathways_counts'],result['gene_to_pathway'],result['pathway_with_genes'])
 class about: 
     def GET(self): 
         return render.about()

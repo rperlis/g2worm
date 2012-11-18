@@ -215,7 +215,7 @@ def make_pathways(variables):
 
     
 # read in pairs of human id to worm
-    fname="static/orthology_rp.txt"
+    fname=os.path.dirname(__file__)+"/static/orthology_rp.txt"
     #fname="static/toy_orthology_rp.txt"
 # read in property dictionary - new format
     matcher_dict={}
@@ -228,7 +228,7 @@ def make_pathways(variables):
     goodgenes=["Not_applicable - creating pathway files"]
     #print (matcher_dict)
     
-    fname="static/mart_export.txt.gz"
+    fname="/static/mart_export.txt.gz"
 
 # read in worm phenotype dictionary - new format
     property_dict={}
@@ -330,7 +330,7 @@ def make_pathways(variables):
     print(pathway_pvals)
     
     ##### and save it
-    permute_file=file("static/g2worm_permute","w")
+    permute_file=file(os.path.dirname(__file__)+"/static/g2worm_permute","w")
     for counts in pathway_pvals:
         for paths in pathway_pvals[counts]:
             writestring='\t'.join(map(str,pathway_pvals[counts][paths]))
@@ -340,7 +340,7 @@ def make_pathways(variables):
     ####################
     # write files
     ####################
-    inrich_file=file("static/g2worm_inrich","w")
+    inrich_file=file(os.path.dirname(__file__)+"/static/g2worm_inrich","w")
     inrich_file.write("Gene_name\tPath_name\tAnnotation\n")
     for human_genes in matcher_dict :
         for phenotypes in property_dict[matcher_dict[human_genes]][2]:
@@ -357,7 +357,7 @@ def make_pathways(variables):
     ######################
     # first read hg18 data
     # read in pairs of human id to worm
-    fname="static/glist-hg18"
+    fname=os.path.dirname(__file__)+"/static/glist-hg18"
     #fname="static/toy_orthology_rp.txt"
 # read in property dictionary - new format
     hg18_lookup={}
@@ -367,7 +367,7 @@ def make_pathways(variables):
     for row in gene_table:
         gene_dict[row[3]]=row[0]+"\t"+row[1]+"\t"+row[2]
 # now output list of genes
-    plink_file=file("static/g2worm_plinkset","w")
+    plink_file=file(os.path.dirname(__file__)+"/static/g2worm_plinkset","w")
     # plink_file.write("Gene_name\tPath_name\tAnnotation\n") ---> NO HEADER
     for human_genes in matcher_dict :
         for phenotypes in property_dict[matcher_dict[human_genes]][2]:
