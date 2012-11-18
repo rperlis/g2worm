@@ -1,6 +1,6 @@
 import web
 from web import form
-from g2worm import calculator2
+from g2worm import calculator_worm
 import math
 import json
 import os
@@ -89,7 +89,7 @@ class index:
             #else: return render.results(variables['Index_drug'],drug_results_json,result['zscore'],variables['Comparator'],result['matched_list'])
                 return render.results(result['goodgenes'],result['goodwormgene'],result['full_pathways_counts'],"n_a","n_a")
             else : 
-                result=calculator2.check_genelist(variables)
+                result=calculator_worm.check_genelist(variables)
                 return render.results(result['goodgenes'],result['goodwormgene'],result['full_pathways_counts'],result['gene_to_pathway'],result['pathway_with_genes'])
 class about: 
     def GET(self): 
